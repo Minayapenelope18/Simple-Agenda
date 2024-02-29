@@ -1,48 +1,90 @@
-
-import java.util.ArrayList;
+import java.util.Scanner;
 
 public class SimpleAgenda {
-    private static ArrayList<String> contactos = new ArrayList<>();
+    public static String[] contactos = new String[10];
 
-        public static void agregarContacto(String nombre) {
-            contactos.add(nombre);
-            System.out.println("Contacto agregado: " + nombre);
-        }
 
-        public static void removerContacto(int posicion) {
-            if (posicion >= 0 && posicion < contactos.size()) {
-                String contactoRemovido = contactos.remove(posicion);
-                System.out.println("Contacto removido: " + contactoRemovido);
-            } else {
-                System.out.println("Posición inválida. No se pudo remover el contacto.");
+    public static void agregarContacto() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ingrese un contacto a agregar:");
+        String nombre = scanner.nextLine();
+        boolean encontrado = false;
+        for (String contacto : contactos) {
+            if (nombre.equals(contacto)) {
+                encontrado = true;
+                break;
             }
         }
 
-        public static String actualizarContacto(int posicion) {
-            if (posicion >= 0 && posicion < contactos.size()) {
-                contactos.set(posicion, "N/A");
-                return "Contacto actualizado en la posición " + posicion;
-            } else {
-                return "Posición inválida. No se pudo actualizar el contacto.";
+        if (encontrado) {
+            System.out.println("Ya se ha agregado anteriormente.");
+        } else {
+            for (int i = 0; i < contactos.length; i++) {
+                if (contactos[i] == null) {
+                    contactos[i] = nombre;
+                    System.out.println("Agregado satisfactoriamente.");
+                    break;
+                }
             }
-        }
-
-        public static void mostrarContactos() {
-            System.out.println("Lista de contactos:");
-            for (int i = 0; i < contactos.size(); i++) {
-                System.out.println("Posición " + i + ": " + contactos.get(i));
-            }
-        }
-        public static void main(String[] args) {
-            agregarContacto("Sebastian");
-            agregarContacto("Penelope");
-            mostrarContactos();
-
-            removerContacto(1);
-            mostrarContactos();
-
-            System.out.println(actualizarContacto(0));
-            mostrarContactos();
         }
     }
 
+    public static void removerContacto() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ingrese el contacto a remover:");
+        String nombre = scanner.nextLine();
+
+        boolean encontrado = false;
+        for (int i = 0; i < contactos.length; i++) {
+            if (nombre.equals(contactos[i])) {
+                encontrado = true;
+                contactos[i] = null;
+                System.out.println("El contacto " + nombre + " fue removido exitosamente!");
+                break;
+            }
+        }
+
+        if (!encontrado) {
+            System.out.println("No existe tal contacto.");
+        }
+    }
+
+    public static void mostrarContacto() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ingrese el contacto a mostrar:");
+        String nombre = scanner.nextLine();
+
+        boolean encontrado = false;
+        for (String contacto : contactos) {
+            if (nombre.equals(contacto)) {
+                encontrado = true;
+                System.out.println("El contacto " + nombre + ".");
+                break;
+            }
+        }
+
+        if (!encontrado) {
+            System.out.println("No existen registros de este contacto.");
+        }
+    }
+
+    public static void mostrarContactos() {
+        System.out.println("Mostrando contactos…");
+        for (String contacto : contactos) {
+            if (contacto != null) {
+                System.out.println(contacto);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        agregarContacto();
+        agregarContacto();
+        mostrarContactos();
+
+        removerContacto();
+        mostrarContactos();
+
+        mostrarContacto();
+    }
+}
