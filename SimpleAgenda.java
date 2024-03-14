@@ -8,7 +8,7 @@ public class SimpleAgenda {
 
     public static void agregarContacto() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Ingrese un contacto a agregar:");
+        System.out.println("Ingrese un contacto a agregar: ");
         String nombre = scanner.nextLine();
 
         boolean existe = false;
